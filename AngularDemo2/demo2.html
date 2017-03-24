@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>基于angularJS的简单表格操作</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="angularJS;简单;表格操作;">
+    <meta name="description" content="angularJS的简单表格操作">
+    <link rel="shortcut icon" href="" mce_href="" type="image/x-icon"/>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"/>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+    
+    <div class="container">
+        <hr />
+        <div style="text-align:right;">
+            <button class="btn btn-success" ng-click="editUser('new')">
+                <span class="glyphicon glyphicon-user"></span>创建新用户
+            </button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="20%">编辑</th>
+                    <th width="20%">姓</th>
+                    <th width="20%">名</th>
+                    <th width="20%">备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>
+                        <button class="btn btn-success" ng-click="editUser(user.id)">
+                            <span class="glyphicon glyphicon-pencil"></span>编辑
+                        </button>
+                        <button class="btn" ng-click="delete(user.id)">
+                            <span class="glyphicon glyphicon-remove"></span>删除
+                        </button>
+                    </td>
+                    <td>{{ user.fName }}</td>
+                    <td>{{ user.lName }}</td>
+                    <td>{{ user.content }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="dialog" style="display:none;">
+            <!--<h3 ng-show="edit">创建新用户:</h3>
+            <h3 ng-hide="edit">编辑用户:</h3>-->
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">用户姓:</label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="fName" ng-disabled="!edit" placeholder="" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">用户名:</label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="lName" ng-disabled="!edit" placeholder="" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">备注:</label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="content" placeholder="" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">密码:</label>
+                    <div class="col-sm-6">
+                        <input type="password" ng-model="passw1" placeholder="" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">重复密码:</label>
+                    <div class="col-sm-6">
+                        <input type="password" ng-model="passw2" placeholder="" class="form-control" />
+                    </div>
+                </div>
+            </form>
+
+            <hr>
+            <button class="btn btn-success" ng-disabled="error || incomplete" ng-show="!edit" ng-click="update()" style="float:right;">
+                <span class="glyphicon glyphicon-ok"></span>修改
+            </button>
+            <button class="btn btn-success" ng-disabled="error || incomplete" ng-click="commit()" ng-show="edit" style="float:right;">
+                <span class="glyphicon glyphicon-ok"></span>保存
+            </button>
+        </div>
+    </div>
+    <script src="../js/myUsers.js"></script>
+</body>
+</html>
