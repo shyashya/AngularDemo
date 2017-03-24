@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>angularDemo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="../js/angular.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body  ng-app="myApp">
+    <div ng-controller="ctrl" ng-init="a=5;b=10">
+        <div><input type="text" name="input" ng-model="text1"></div>
+
+	    <p>（ng-bind方式）你好：<span ng-bind="text1"></span></p>
+        <p>（angular表达式方式\{\{}}）你好：{{text1}}</p>
+        <p>5+5= {{ 5 + 5 }} </p>
+        <p>（这里对ng-init里面进行了设置a=5;b=10，求a*b）{{a*b}}</p>
+    </div>
+    <hr/>
+    <a-b></a-b>
+    <hr/>
+    <div ng-controller="myctrl2">
+        <input ng-model="text2"/>
+        <ul>
+            <li ng-repeat="x in greetting">
+                {{x.Name}}
+            </li>
+
+        </ul>
+        <button ng-click="clickOn()">点击</button>
+    </div>
+    <hr/>
+    <div ng-controller="myctrl3">
+        <select ng-init="selectedName = names[0]" ng-model="selectedName" ng-options="x for x in names">
+        </select>
+    </div>
+    <hr/>
+    <div ng-controller="myctrl4">
+        <table>
+            <tr ng-repeat="x in trs">
+                <td>{{x.Name }}</td>
+                <td>{{x.Country }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr/>
+    <div ng-controller="myctrl5">
+        <button ng-click="count = count+1">点击</button>
+        <p>{{count}}</p>
+    </div>
+    <hr/>
+    <div ng-controller="myctrl6">
+        <form novalidate name="myForm">
+            用户名：<input type="text" name="user" ng-model="user" required/>
+            <span style="color:red;" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+                <span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+            </span>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    var m = {
+        "records": [
+    { "Name": "Alfreds Futterkiste", "City": "Berlin", "Country": "Germany" },
+    { "Name": "Ana Trujillo Emparedados y helados", "City": "México D.F.", "Country": "Mexico" },
+    { "Name": "Antonio Moreno Taquería", "City": "México D.F.", "Country": "Mexico" },
+    { "Name": "Around the Horn", "City": "London", "Country": "UK" },
+    { "Name": "B's Beverages", "City": "London", "Country": "UK" },
+    { "Name": "Berglunds snabbköp", "City": "Luleå", "Country": "Sweden" },
+    { "Name": "Blauer See Delikatessen", "City": "Mannheim", "Country": "Germany" },
+    { "Name": "Blondel père et fils", "City": "Strasbourg", "Country": "France" },
+    { "Name": "Bólido Comidas preparadas", "City": "Madrid", "Country": "Spain" },
+    { "Name": "Bon app'", "City": "Marseille", "Country": "France" },
+    { "Name": "Bottom-Dollar Marketse", "City": "Tsawassen", "Country": "Canada" },
+    { "Name": "Cactus Comidas para llevar", "City": "Buenos Aires", "Country": "Argentina" },
+    { "Name": "Centro comercial Moctezuma", "City": "México D.F.", "Country": "Mexico" },
+    { "Name": "Chop-suey Chinese", "City": "Bern", "Country": "Switzerland" },
+    { "Name": "Comércio Mineiro", "City": "São Paulo", "Country": "Brazil" }
+        ]
+    };
+    var app = angular.module('myApp', []).controller('ctrl', function ($scope) {
+        $scope.text1 = "哔哩哔哩";
+    }).directive('aB', function () {
+        return {
+            template: "<h1>自定义指令!</h1>"
+        }
+    }).controller('myctrl2', function ($scope) {
+        $scope.text2 = "张三";
+        $scope.clickOn = function () {
+            $scope.greetting = [{ Name: "请求成功" }, { Name: "请求失败" }];
+        }
+
+    }).controller('myctrl3', function ($scope) {
+
+        $scope.names = ["张三", "李四", "王五"];
+
+    }).controller('myctrl4', function ($scope,$http) {
+
+        $scope.names = ["张三", "李四", "王五"];
+        //var a = JSON.stringify($http.get("/data.json"));
+        //console.log(a);
+        $scope.trs = m.records;
+    }).controller('myctrl5', function ($scope) {
+
+        $scope.count = 1;
+
+    }).controller('myctrl6', function ($scope) {
+
+        $scope.user = "shya";
+    });
+</script>
