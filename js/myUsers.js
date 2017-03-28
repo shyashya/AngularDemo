@@ -13,36 +13,40 @@ angular.module('myApp', []).controller('userCtrl', function ($scope) {
     $scope.lName = '';
     $scope.passw1 = ''; 
     $scope.passw2 = '';
+    $scope.sortAsc = true;
+    $scope.sortShow = true;
     $scope.users = [
-    { id: 1, fName: '赵', lName: "一" ,content:"忽如一夜春风来"},
-    { id: 2, fName: '钱', lName: "二", content: "千树万树梨花开" },
-    { id: 3, fName: '孙', lName: "三", content: "天生我材必有用" },
-    { id: 4, fName: '李', lName: "四", content: "千金散尽还复来" },
-    { id: 5, fName: '周', lName: "五", content: "人生得意须尽欢" },
-    { id: 6, fName: '吴', lName: "六", content: "莫使金樽空对月" }
+    { id: 1, fName: '赵', lName: "1" ,content:"忽如一夜春风来"},
+    { id: 2, fName: '钱', lName: "2", content: "千树万树梨花开" },
+    { id: 3, fName: '孙', lName: "3", content: "天生我材必有用" },
+    { id: 4, fName: '李', lName: "4", content: "千金散尽还复来" },
+    { id: 5, fName: '周', lName: "5", content: "人生得意须尽欢" },
+    { id: 6, fName: '吴', lName: "6", content: "莫使金樽空对月" }
     ];
     $scope.edit = true;
     $scope.error = false;
     $scope.incomplete = false;
-    $scope.title = '编辑';
 
   
 
     $scope.editUser = function (id) {
         if (id == 'new') {
-            $scope.title = '新建用户';
             $scope.edit = true;
             $scope.incomplete = true;
             $scope.fName = '';
             $scope.lName = '';
             $scope.content = '';
-         }else {
-            $scope.title = '编辑用户';
-            $scope.id = id;
-            $scope.edit = false;
-            $scope.fName = $scope.users[id - 1].fName;
-            $scope.lName = $scope.users[id - 1].lName;
-            $scope.content = $scope.users[id - 1].content;
+        } else {
+            for (i in $scope.users) {
+                if (id == $scope.users[i].id) {
+                    $scope.id = id;
+                    $scope.edit = false;
+                    $scope.fName = $scope.users[i].fName;
+                    $scope.lName = $scope.users[i].lName;
+                    $scope.content = $scope.users[i].content;
+                }
+            }
+            
         }
         $('#dialog').dialog("open");
     };
@@ -93,4 +97,25 @@ angular.module('myApp', []).controller('userCtrl', function ($scope) {
         }
     }
 
+    $scope.sort = function (index) {
+        var name = Object.keys($scope.users[0])[index];
+        $scope.users.sort(by(name));
+        $scope.sortAsc = !$scope.sortAsc;
+        $scope.sortShow = !$scope.sortShow;
+    }
+
+    var by = function (name) {
+        return function (a, b) {
+            if (typeof a === "object" && typeof b === "object" && a && b) {
+                if ($scope.sortAsc) {
+                    return a[name] > b[name] ? 1 : -1;
+                } else {
+                    return b[name] > a[name] ? 1 : -1;
+                }
+            } else {
+                return error;
+            }
+        }
+    }
+   
 });

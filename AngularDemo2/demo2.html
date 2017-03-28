@@ -6,10 +6,10 @@
     <meta name="keywords" content="angularJS;简单;表格操作;">
     <meta name="description" content="angularJS的简单表格操作">
     <link rel="shortcut icon" href="" mce_href="" type="image/x-icon"/>
-    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"/>
-    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"/>
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="../js/angular.js"></script>
 </head>
 <body ng-app="myApp" ng-controller="userCtrl">
@@ -21,13 +21,13 @@
                 <span class="glyphicon glyphicon-user"></span>创建新用户
             </button>
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th width="20%">编辑</th>
-                    <th width="20%">姓</th>
-                    <th width="20%">名</th>
-                    <th width="20%">备注</th>
+                    <th width="20%" ng-click="sort(1)">姓<span class="glyphicon glyphicon-sort-by-attributes" ng-show="!sortShow"></span><span class="glyphicon glyphicon-sort-by-attributes-alt" ng-show="sortShow"></span></th>
+                    <th width="20%" ng-click="sort(2)">名<span class="glyphicon glyphicon-sort-by-attributes" ng-show="!sortShow"></span><span class="glyphicon glyphicon-sort-by-attributes-alt" ng-show="sortShow"></span></th>
+                    <th width="20%" ng-click="sort(3)">备注<span class="glyphicon glyphicon-sort-by-attributes" ng-show="!sortShow"></span><span class="glyphicon glyphicon-sort-by-attributes-alt" ng-show="sortShow"></span></th>
                 </tr>
             </thead>
             <tbody>
